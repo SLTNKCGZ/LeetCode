@@ -1,6 +1,15 @@
-.exe
-.class
-/bin/
+# Eclipse ve IDE dosyalarını yoksay
 .settings/
 .project
-/.classpath
+.classpath
+
+# Derleme çıktıları ve çalışma dosyalarını yoksay
+*.exe
+*.class
+
+# Geçici dosyalar ve log dosyalarını yoksay
+*.log
+*.tmp
+
+# Diğer gereksiz dosyaları yoksay
+*.bak
