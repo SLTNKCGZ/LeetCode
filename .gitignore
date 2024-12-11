@@ -1,6 +1,6 @@
-*.exe
-*.class
+.exe
+.class
 /bin/
-/*.settings/
-/*.project
+.settings/
+.project
 /.classpath
