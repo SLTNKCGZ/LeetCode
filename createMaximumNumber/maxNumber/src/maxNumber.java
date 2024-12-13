@@ -4,13 +4,13 @@ public class maxNumber {
         int[] nums2 = { 9, 1, 2, 5, 8, 3 };
         int[] maxNumber = maxNumber(nums1, nums2, 4);
         for (int i = 0; i < maxNumber.length; i++) {
-            System.out.print(maxNumber[i]+" ");
+            System.out.print(maxNumber[i] + " ");
         }
     }
 
-    public static int[] maxNumber(int[] nums1, int[] nums2, int k) {
+    public static int[] maxNumberMethod(int[] nums1, int[] nums2, int k) {
         int[] finalNum = new int[k];
-        
+
         int[] nums = new int[nums1.length + nums2.length];
         for (int i = 0; i < nums1.length + nums2.length; i++) {
             if (i < nums1.length) {
@@ -28,8 +28,8 @@ public class maxNumber {
                 }
             }
         }
-        for(int i=0;i<k;i++){
-            finalNum[i]=nums[i];
+        for (int i = 0; i < k; i++) {
+            finalNum[i] = nums[i];
         }
         return finalNum;
     }
