@@ -29,7 +29,7 @@ struct ListNode* swapNodes(struct ListNode* head, int k) {
             n1=temp->val;
             
         }
-        else if(i==count-k+1){
+        if(i==count-k+1){
             n2=temp->val;
             
         }

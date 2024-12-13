@@ -37,7 +37,7 @@ node* removeNthFromEnd(node* head, int n) {
         temp->next = toDelete->next;
         free(toDelete);
     }
-
+    //head=reverseTheList(head);
     return head;
 }
 
@@ -85,9 +85,8 @@ int main(){
     addNode(&head,5);
     addNode(&head,4);
     addNode(&head,3);
-    addNode(&head,2);
-    addNode(&head,1);
+    
     head=reverseTheList(head);
-    head=removeNthFromEnd(head,5);
-    printList(head);
+    head=removeNthFromEnd(head,1);
+    printList(reverseTheList(head));
 }

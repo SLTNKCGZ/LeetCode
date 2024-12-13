@@ -2,7 +2,9 @@
 .settings/
 .project
 .classpath
-
+.vscode/
+lib/
+*.md
 # Derleme çıktıları ve çalışma dosyalarını yoksay
 *.exe
 *.class
