@@ -66,14 +66,7 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
     return reverseTheList(sumNode);
 }
 
-void createNode(struct ListNode **node) {
-    struct ListNode *newNode = (struct ListNode *)malloc(sizeof(struct ListNode));
-    if (newNode == NULL) {
-        return;
-    }
-    newNode->next = NULL;
-    *node = newNode;
-}
+
 
 struct ListNode* reverseTheList(struct ListNode *head) {
     struct ListNode *previous = NULL;
