@@ -20,9 +20,11 @@ void printList(struct ListNode *head){
     }
     printf("\n");
 }
+
 struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
-    struct ListNode *temp1 = reverseTheList(l1);
-    struct ListNode *temp2 = reverseTheList(l2);
+    
+    struct ListNode *temp1 = l1;
+    struct ListNode *temp2 = l2;
     
     struct ListNode *sumNode = NULL;
     struct ListNode *sumTemp = NULL;
@@ -50,7 +52,7 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
             sumNode = newNode;
             sumTemp = sumNode;
         } else {
-            sumTemp->next = newNode;  // Corrected here to link the new node
+            sumTemp->next = newNode;  
             sumTemp = newNode; 
         }
         
@@ -112,13 +114,14 @@ int main() {
     addNode(&l2,5);
     addNode(&l2,6);
     addNode(&l2,4);
-
+    printf("L1 list: ");
     printList(l1);
+    printf("L2 list: ");
     printList(l2);
     
     struct ListNode *sum = addTwoNumbers(l1, l2);
 
-    
+    printf("Sum list: ");
     if(sum != NULL) {
         printList(sum);
     }
