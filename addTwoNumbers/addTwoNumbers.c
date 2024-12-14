@@ -6,65 +6,128 @@ struct ListNode {
     struct ListNode *next;
 };
 
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2);
+void createNode(struct ListNode **node);
+struct ListNode* reverseTheList(struct ListNode *head);
+void printList(struct ListNode *head);
+
+void printList(struct ListNode *head){
+    struct ListNode *temp=head;
+    
+    while(temp!=NULL){
+        printf("%d--",temp->val);
+        temp=temp->next;
+    }
+    printf("\n");
+}
 struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
-    struct ListNode *sum = (struct ListNode *)malloc(sizeof(struct ListNode));
-    struct ListNode *tempSum = sum;
+    struct ListNode *temp1 = reverseTheList(l1);
+    struct ListNode *temp2 = reverseTheList(l2);
+    
+    struct ListNode *sumNode = NULL;
+    struct ListNode *sumTemp = NULL;
     int carry = 0;
 
-    while (l1 != NULL || l2 != NULL || carry != 0) {
-        int sum1 = carry;  // Carry'yi ekliyoruz
-
-        if (l1 != NULL) {
-            sum1 += l1->val;
-            l1 = l1->next;
+    while (temp1 != NULL || temp2 != NULL) {
+        int sum = carry;
+        carry = 0;
+        if (temp1 != NULL) {
+            sum += temp1->val;
+            temp1 = temp1->next;
         }
-
-        if (l2 != NULL) {
-            sum1 += l2->val;
-            l2 = l2->next;
+        if (temp2 != NULL) {
+            sum += temp2->val;
+            temp2 = temp2->next;
         }
-
-        carry = sum1 / 10;  // Taşıma değeri
-        sum1 = sum1 % 10;   // Kalan değer
-
-        sum->val = sum1;    // Şimdiki düğümdeki değeri atama
-
-        if (l1 != NULL || l2 != NULL || carry != 0) {
-            sum->next = (struct ListNode *)malloc(sizeof(struct ListNode));
-            sum = sum->next;
+        if (sum >= 10) {
+            carry = sum / 10;
+            sum = sum % 10;
         }
+        struct ListNode *newNode = (struct ListNode *)malloc(sizeof(struct ListNode));
+        newNode->val = sum;
+        newNode->next = NULL;
+        if (sumNode == NULL) {
+            sumNode = newNode;
+            sumTemp = sumNode;
+        } else {
+            sumTemp->next = newNode;  // Corrected here to link the new node
+            sumTemp = newNode; 
+        }
+        
+    }
+    
+    if (carry != 0) {
+        struct ListNode *carryNode = (struct ListNode *)malloc(sizeof(struct ListNode));
+        carryNode->val = carry;
+        carryNode->next = NULL;
+        sumTemp->next = carryNode;
     }
 
-    sum->next = NULL;  // Son düğümde next NULL olmalı
-    return tempSum;
+    return reverseTheList(sumNode);
+}
+
+void createNode(struct ListNode **node) {
+    struct ListNode *newNode = (struct ListNode *)malloc(sizeof(struct ListNode));
+    if (newNode == NULL) {
+        return;
+    }
+    newNode->next = NULL;
+    *node = newNode;
+}
+
+struct ListNode* reverseTheList(struct ListNode *head) {
+    struct ListNode *previous = NULL;
+    struct ListNode *current = head;
+    struct ListNode *next = NULL;
+
+    if(head==NULL || head->next==NULL){
+        return head;
+    }
+    while (current != NULL) {
+        next = current->next;
+        current->next = previous;
+        previous = current;
+        current = next;
+    }
+    return previous;
+}
+void addNode(struct ListNode ** head,int data){
+    struct ListNode  *new=(struct ListNode  *)malloc(sizeof(struct ListNode));
+    new->val=data;
+    new->next=NULL;
+    struct ListNode  *temp=*head;
+    if(*head==NULL){
+        *head=new;
+    }
+    else{
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        temp->next=new;
+    }
+    
 }
 
 int main() {
     // İlk bağlı listeyi oluşturuyoruz
-    struct ListNode *l1 = (struct ListNode *)malloc(sizeof(struct ListNode));
-    l1->val = 2;
-    l1->next = (struct ListNode *)malloc(sizeof(struct ListNode));
-    l1->next->val = 4;
-    l1->next->next = (struct ListNode *)malloc(sizeof(struct ListNode));
-    l1->next->next->val = 3;
-    l1->next->next->next = NULL;
+    struct ListNode *l1=NULL;
+    addNode(&l1,2);
+    addNode(&l1,4);
+    addNode(&l1,3);
 
-    // İkinci bağlı listeyi oluşturuyoruz
-    struct ListNode *l2 = (struct ListNode *)malloc(sizeof(struct ListNode));
-    l2->val = 5;
-    l2->next = (struct ListNode *)malloc(sizeof(struct ListNode));
-    l2->next->val = 6;
-    l2->next->next = (struct ListNode *)malloc(sizeof(struct ListNode));
-    l2->next->next->val = 4;
-    l2->next->next->next = NULL;
+    struct ListNode *l2=NULL;
+    addNode(&l2,5);
+    addNode(&l2,6);
+    addNode(&l2,4);
 
-    // Toplama işlemi
+    printList(l1);
+    printList(l2);
+    
     struct ListNode *sum = addTwoNumbers(l1, l2);
 
-    // Toplam sonucu yazdırma
-    while (sum != NULL) {
-        printf("%d ", sum->val);
-        sum = sum->next;
+    
+    if(sum != NULL) {
+        printList(sum);
     }
     printf("\n");
 
